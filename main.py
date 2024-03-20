@@ -12,13 +12,15 @@ for invoice in invoices:
     pdf = FPDF(orientation="P", unit="mm", format="A4")
     pdf.add_page()
 
-    # Filename as list. 0=Number 1=Date
+    # Filename as list.
     filename = Path(invoice).stem
-    file_number = filename.split('-')[0]
-    file_date = filename.split('-')[1]
+    file_number, file_date = filename.split('-')
 
     # Layout
     pdf.set_font(family="Times", size=16, style="B")
-    pdf.cell(w=50, h=8, txt=f"Invoice nr. {file_number}")
+    pdf.cell(w=50, h=8, txt=f"Invoice nr. {file_number}", ln=1)
+
+    pdf.set_font(family="Times", size=16, style="B")
+    pdf.cell(w=50, h=8, txt=f"Date: {file_date}", ln=1)
 
     pdf.output(f"PDFs/{filename}.pdf")
